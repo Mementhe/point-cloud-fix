@@ -6,14 +6,14 @@ def registration(separated_output, full_output, station_nb):
     def load_point_clouds(voxel_size=0.0):
         pcds = []
         for i in range(1,station_nb):
-            pcd = o3d.io.read_point_cloud("out\station_%d_Final.pts"   %
+            pcd = o3d.io.read_point_cloud("../data/out/station_%d_Final.pts"   %
                                           i)
             pcd_down = pcd.voxel_down_sample(voxel_size=voxel_size)
             pcd_down.estimate_normals(
                 search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=10, max_nn=300))
             pcds.append(pcd_down)
         return pcds
-    voxel_size = 0.02
+    voxel_size = 0.002
     pcds_down = load_point_clouds(voxel_size)
     o3d.visualization.draw_geometries(pcds_down,
                                       zoom=0.3412,
@@ -93,11 +93,6 @@ def registration(separated_output, full_output, station_nb):
     for point_id in range(len(pcds_down)):
         print(pose_graph.nodes[point_id].pose)
         pcds_down[point_id].transform(pose_graph.nodes[point_id].pose)
-    o3d.visualization.draw_geometries(pcds_down,
-                                      zoom=0.3412,
-                                      front=[0.4257, -0.2125, -0.8795],
-                                      lookat=[2.6172, 2.0475, 1.532],
-                                      up=[-0.0694, -0.9768, 0.2024])
 
     pcds = load_point_clouds(voxel_size)
     pcd_combined = o3d.geometry.PointCloud()
@@ -108,9 +103,5 @@ def registration(separated_output, full_output, station_nb):
         pcd_combined += pcds[point_id]
     pcd_combined_down = pcd_combined.voxel_down_sample(voxel_size=voxel_size)
     o3d.io.write_point_cloud(full_output, pcd_combined_down)
-    o3d.visualization.draw_geometries([pcd_combined_down],
-                                      zoom=0.3412,
-                                      front=[0.4257, -0.2125, -0.8795],
-                                      lookat=[2.6172, 2.0475, 1.532],
-                                      up=[-0.0694, -0.9768, 0.2024])
+    o3d.visualization.draw_geometries([pcd_combined_down])
 

@@ -21,7 +21,7 @@ def origin(input, output, scan_pos, station_nb):
             if len(station)!=0 and lineIndex == i:
                 pcd.translate((scanX,scanY,scanZ), relative=True)
                 #pcd.scale(0.01, center=(0, 0, 0))
-                pcd = pcd.voxel_down_sample(voxel_size=0.05)
+                #pcd = pcd.voxel_down_sample(voxel_size=0.05)
                 o3d.io.write_point_cloud(output % i, pcd)
     
         
