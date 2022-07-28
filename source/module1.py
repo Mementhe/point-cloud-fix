@@ -16,6 +16,25 @@ def non_rigid_pcd(input1, input2):
     result = copy.deepcopy(source)
     result.points = tf_param.transform(result.points)
 
+    pcd = open("../data/in/XYZ.txt")
+    pcdtxt = pcd.readlines
+    for line in pcdtxt:
+            if line == 0:
+                station = line.split(",")
+                scanX = float(station[0])
+                scanY = float(station[1])
+                scanZ = float(station[2])
+                target.translate((scanX, scanY, scanZ), relative = True)
+                source.translate((scanX, scanY, scanZ), relative = True)
+            if line == 1:
+                station = line.split(",")
+                scanX = -float(station[0])
+                scanY = -float(station[1])
+                scanZ = -float(station[2])
+                target.translate((scanX, scanY, scanZ), relative = True)
+                source.translate((scanX, scanY, scanZ), relative = True)
+    
+
     # draw result
     #target.scale(100, center=(0, 0, 0))
     #result.scale(100, center=(0, 0, 0))

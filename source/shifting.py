@@ -1,4 +1,3 @@
-from difflib import Differ
 import open3d as o3d
 import math
 import numpy as np
@@ -38,24 +37,24 @@ def shifting(input, station_nb):
                 for item in L:
                     M.append(float(item))
                 #x
-                #dx = math.sqrt((M[1])**2 + (M[2])**2)
-                #M[0] = (2.198*dx+246.873*float(M[0]))/244.21
+                dx = math.sqrt((M[1])**2 + (M[2])**2)
+                M[0] = -(-0.459*dx-109.99*float(M[0]))/109.345
                 #y
-                #dy = math.sqrt((M[0])**2 + (M[2])**2)
-                #M[1] = (3.917*dy+103.283*float(M[1]))/101.322
-                M[0] = 0.99869*float(M[0])+0.07113
-                M[1] = 1.00576*float(M[1])+0.06145
+                dy = math.sqrt((M[0])**2 + (M[2])**2)
+                M[1] = -(-0.022*dy-80.882*float(M[1]))/80.118
+                #M[0] = 0.99869*float(M[0])+0.07113
+                #M[1] = 1.00576*float(M[1])+0.06145
                 #z
                 dz = math.sqrt(M[0]**2 + M[1]**2)
-                M[2] = -(4.704*dz-63.734*float(M[2])-44.497)/56.049
+                M[2] = -(3.58951*dz-101.97345*float(M[2]))/90.80112
                 
                 
 
-                #D = math.sqrt(M[0]**2 + M[1]**2 + M[2]**2)
-                #D = 0.93465*D
+                D = math.sqrt(M[0]**2 + M[1]**2 + M[2]**2)
+                D = 0.93465*D
 
-                #M[1] = math.sqrt(D**2 - M[0]**2 - M[2]**2)
-                #M[0] = math.sqrt(D**2 - M[1]**2 - M[2]**2)
+                M[1] = math.sqrt(D**2 - M[0]**2 - M[2]**2)
+                M[0] = math.sqrt(D**2 - M[1]**2 - M[2]**2)
         
                 M[0] = float(round(M[0],10))
                 M[1] = float(round(M[1],10))
